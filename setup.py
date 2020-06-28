@@ -38,5 +38,5 @@ setup(
     ],
     description='Add svg files printed in Rhino to Dash Plotly graph',
     url='https://github.com/mottmacdonaldglobal/dash_svg_graph.git',
-    install_requires=['dash',],
-    package_data={'pyiges.examples': ['impeller.igs']}
+    install_requires=['dash',]
+)
