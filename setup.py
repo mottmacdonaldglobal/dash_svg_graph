@@ -4,7 +4,7 @@ from setuptools import setup
 import os
 from io import open as io_open
 
-package_name = 'dash_svg_graph'
+package_name = 'dash_cad_to_graph'
 
 # Get version
 __version__ = None
@@ -36,7 +36,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
-    description='Add svg files printed in Rhino to Dash Plotly graph',
-    url='https://github.com/mottmacdonaldglobal/dash_svg_graph.git',
-    install_requires=['dash',]
+    description='Add CAD file lines/ shapes Dash Plotly graphs',
+    url='https://github.com/mottmacdonaldglobal/dash_cad_to_graph.git',
+    install_requires=['dash, ezdxf',]
 )
