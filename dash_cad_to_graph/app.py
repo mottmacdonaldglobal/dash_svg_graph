@@ -17,26 +17,26 @@ fig = go.Figure()
 
 # Update axes properties
 fig.update_xaxes(
-    range=[0, 200000],
+    range=[0, 400],
     zeroline=False,
 )
 
 fig.update_yaxes(
-    range=[100000, 200000],
+    range=[0, 400],
     zeroline=False,
 )
 
 
+dxf_filepath = os.path.join(os.getcwd(),'data','section.dxf')
+my_dxf = dxf.DxfImporter(dxf_filepath)
+my_dxf_shapes = my_dxf.process()
 
-filepath = os.path.join(os.getcwd(),'data','demo.svg')
-my_svg = svg.GraphSvg(filepath)
-fig.update_layout(shapes = my_svg.traces_from_svg_file(filepath, flip_x = False, flip_y = False))
+fig.update_layout(shapes = my_dxf_shapes)
 
 fig['layout'].update(
-    autosize=True,
+    autosize=False,
     yaxis=dict(scaleanchor="x", scaleratio=1),
-    title='Heat Map East Podium L3',
-    xaxis_title='Wynyard Street',
+    title='Extrusion DXF import',
     )
 
 

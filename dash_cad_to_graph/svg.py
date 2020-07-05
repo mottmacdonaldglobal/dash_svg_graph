@@ -5,7 +5,13 @@ import gzip
 import shutil
 from typing import List,Dict
 
+from shapely.geometry import LineString
 import plotly.graph_objects as go
+
+from importer import GeometryImporter
+
+
+
 
 
 class _SvgPath():
@@ -41,15 +47,35 @@ class _SvgPath():
             fillcolor = self.fill
         )
 
+    @classmethod
+    def from_linestring(cls, ls : LineString):
+        """
+        Converts shapely.geometry.LineString to SVG path. 
+        Shapely can produce SVG output using linestring._repr_svg_() but it
+        produces an SVG XML using polygon, not (more generic and plotly-friendly) path
+        """
+        c = cls()
+        c.d = ''
+        for i,p in enumerate(ls.coords):
+            if i==0:
+                c.d +='M {:f} {:f} '.format(p[0],p[1]) 
+            else:
+                c.d +='L {:f} {:f} '.format(p[0],p[1]) 
+        if ls.is_closed:
+            c.d += 'Z'
+            c.fill = '#000000'
 
-class GraphSvg():
+        return c
 
-    def __init__(self, filepath :str):
-        self.filepath = filepath
+
+class SvgImporter(GeometryImporter):
+
+    def __init__(self, filename :str):
+        super().__init__(filename)
         self.paths = []
 
 
-    def traces_from_svg_file(self, origin = None, flip_x = False, flip_y = False) -> List[Dict]:
+    def process(self, origin = None, flip_x = False, flip_y = False) -> List[Dict]:
         """
         returns plotly shapes as array of dicts
         use '
@@ -57,8 +83,8 @@ class GraphSvg():
         """
 
         # unzip .svgz file into .svg
-        if isinstance(self.filepath, str) and os.path.splitext(self.filepath[1].lower() == ".svgz"):
-            with gzip.open(self.filepath, 'rb') as f_in, open(self.filepath[:-1], 'wb') as f_out:
+        if isinstance(self.filename, str) and os.path.splitext(self.filename[1].lower() == ".svgz"):
+            with gzip.open(self.filename, 'rb') as f_in, open(self.filename[:-1], 'wb') as f_out:
                 shutil.copyfileobj(f_in, f_out)
             self.filepath = self.filepath[:-1]
     
@@ -87,10 +113,11 @@ class GraphSvg():
         for path in self.paths:
             shapes.append(path.to_dash_dict())
 
-        print (shapes)
         return shapes
 
 
 
 
-    
+ 
+            
+
