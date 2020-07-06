@@ -103,6 +103,7 @@ class DxfImporter(GeometryImporter):
 
         multiline = sg.MultiLineString(self.geometry)
         merge = ops.linemerge(multiline)
+        polygon = ops.polygonize_full(merge)
   
         if isinstance(merge,sg.LineString):
             svg_path = _SvgPath.from_linestring(merge)

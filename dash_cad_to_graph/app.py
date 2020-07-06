@@ -7,13 +7,14 @@ import plotly.graph_objects as go
 
 import svg, dxf
 
-
-
 app = dash.Dash(__name__)
 
 fig = go.Figure()
 
-
+dxf_filepath = os.path.join(os.getcwd(),'data','section.dxf')
+my_dxf = dxf.DxfImporter(dxf_filepath)
+my_dxf_shapes = my_dxf.process()
+bounds = my_dxf.bounds()
 
 # Update axes properties
 fig.update_xaxes(
@@ -25,11 +26,6 @@ fig.update_yaxes(
     range=[0, 400],
     zeroline=False,
 )
-
-
-dxf_filepath = os.path.join(os.getcwd(),'data','section.dxf')
-my_dxf = dxf.DxfImporter(dxf_filepath)
-my_dxf_shapes = my_dxf.process()
 
 fig.update_layout(shapes = my_dxf_shapes)
 

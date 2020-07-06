@@ -2,7 +2,7 @@
 Generic implementation of geometry. 
 """
 import abc
-from typing import List
+from typing import List,Tuple
 from shapely.geometry.base import BaseGeometry
 
 class GeometryImporter(abc.ABC):
@@ -17,4 +17,14 @@ class GeometryImporter(abc.ABC):
         Converts CAD file formats geometry to our geometry.
         """
         pass
+
+    def bounds(self) -> Tuple[float]:
+        """
+        Returns, as (xmin,ymin,xmax,ymax) tuple, the bounding box which envelopes
+        this importer's geometry
+        """
+        for g in self.geometry:
+            b = g.bounds
+            pass
+
 
