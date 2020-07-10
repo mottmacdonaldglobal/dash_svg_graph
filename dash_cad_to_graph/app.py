@@ -5,29 +5,20 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objects as go
 
-import svg, dxf
+import cad_to_shapely as c2s
+import processor
 
 app = dash.Dash(__name__)
 
 fig = go.Figure()
 
-dxf_filepath = os.path.join(os.getcwd(),'data','section.dxf')
-my_dxf = dxf.DxfImporter(dxf_filepath)
-my_dxf_shapes = my_dxf.process()
-bounds = my_dxf.bounds()
+dxf_filepath = os.path.join(os.getcwd(),'data','section_holes_complex.dxf')
 
-# Update axes properties
-fig.update_xaxes(
-    range=[0, 400],
-    zeroline=False,
-)
+my_cadfile = processor.CadGeometry(dxf_filepath)
+my_cadfile.load()
+my_cadfile.add_to_figure(fig, single_closed_polygon = True)
+my_cadfile.set_figure_to_bounds(fig)
 
-fig.update_yaxes(
-    range=[0, 400],
-    zeroline=False,
-)
-
-fig.update_layout(shapes = my_dxf_shapes)
 
 fig['layout'].update(
     autosize=False,
@@ -35,9 +26,8 @@ fig['layout'].update(
     title='Extrusion DXF import',
     )
 
-
 app.layout = html.Div([
-    dcc.Graph(figure=fig)
+    dcc.Graph(figure=fig, config=dict(staticPlot = True))
 ])
 
 app.run_server(debug= True)

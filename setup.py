@@ -1,42 +1,34 @@
-  
-"""Setup for pyiges"""
-from setuptools import setup
+import sys
 import os
-from io import open as io_open
+import pathlib
+from setuptools import setup, find_packages
 
-package_name = 'dash_cad_to_graph'
+here = pathlib.Path(__file__).parent.resolve()
 
-# Get version
-__version__ = None
-filepath = os.path.dirname(__file__)
-version_file = os.path.join(filepath, package_name, '_version.py')
-with io_open(version_file, mode='r') as fd:
-    exec(fd.read())
-
-readme_file = os.path.join(filepath, 'README.md')
+# Get the long description from the README file
+long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
-    name=package_name,
-    packages = [package_name],
-    version=__version__,
-    author='Jon',
+    name='dash_cad_to_shape',
+    version='0.1',
+    description='Import CAD files to plotly dash figures',
+    author='Jon Robinson',
     author_email='jonrobinson1980@gmail.com',
-    long_description=io_open(readme_file, encoding="utf-8").read(),
+    long_description=long_description,
+    long_description_content_type='text/markdown', 
     license='MIT',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Science/Research',
-        'Topic :: Scientific/Engineering :: Information Analysis',
         'License :: OSI Approved :: MIT License',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: POSIX',
-        'Operating System :: MacOS',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-    ],
-    description='Add CAD file lines/ shapes Dash Plotly graphs',
-    url='https://github.com/mottmacdonaldglobal/dash_cad_to_graph.git',
-    install_requires=['dash, ezdxf',]
+        'Programming Language :: Python :: 3 :: Only',
+        'Topic :: Scientific/Engineering',
+    ], 
+    packages=find_packages(),
+    python_requires='>=3.5',
+    url='https://github.com/aegis1980/cad_to_shapely',
+    install_requires=['ezdxf', 'numpy', 'shapely' , 'geomdl'],
+    extras_require={  # Optional
+        'dev': ['matplotlib']
+    }
 )
