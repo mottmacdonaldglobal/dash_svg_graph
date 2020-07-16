@@ -9,7 +9,7 @@ here = pathlib.Path(__file__).parent.resolve()
 long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
-    name='dash_cad_to_shape',
+    name='dash_cad_to_graph',
     version='0.1',
     description='Import CAD files to plotly dash figures',
     author='Jon Robinson',
