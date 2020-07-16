@@ -26,9 +26,6 @@ setup(
     ], 
     packages=find_packages(),
     python_requires='>=3.5',
-    url='https://github.com/aegis1980/cad_to_shapely',
-    install_requires=['ezdxf', 'numpy', 'shapely' , 'geomdl'],
-    extras_require={  # Optional
-        'dev': ['matplotlib']
-    }
+    url='https://github.com/mottmacdonaldglobal/dash_cad_to_graph',
+    install_requires=['cad_to_shapely' , 'dash']
 )
