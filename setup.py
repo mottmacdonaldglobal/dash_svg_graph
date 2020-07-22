@@ -10,7 +10,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='dash_cad_to_graph',
-    version='0.1',
+    version='0.2',
     description='Import CAD files to plotly dash figures',
     author='Jon Robinson',
     author_email='jonrobinson1980@gmail.com',
@@ -24,7 +24,7 @@ setup(
         'Programming Language :: Python :: 3 :: Only',
         'Topic :: Scientific/Engineering',
     ], 
-    packages=find_packages(),
+    packages=find_packages(exclude=["examples"]),
     python_requires='>=3.5',
     url='https://github.com/mottmacdonaldglobal/dash_cad_to_graph',
     install_requires=['cad_to_shapely' , 'dash']

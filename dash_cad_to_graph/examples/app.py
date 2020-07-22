@@ -6,7 +6,7 @@ import dash_html_components as html
 import plotly.graph_objects as go
 
 import cad_to_shapely as c2s
-import processor
+from . import processor
 
 app = dash.Dash(__name__)
 

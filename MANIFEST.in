@@ -2,4 +2,4 @@ include *.md
 include LICENSE
 include setup.py
 
-exclude dash_cad_to_graph/app.py
+exclude dash_cad_to_graph/examples*
