@@ -10,7 +10,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='dash_cad_to_graph',
-    version='0.2',
+    version='0.3',
     description='Import CAD files to plotly dash figures',
     author='Jon Robinson',
     author_email='jonrobinson1980@gmail.com',
